@@ -1,7 +1,7 @@
 /**
  * 377. Combination Sum IV
  * finish: 2016-11-28
- * dp
+ * dp:与爬楼梯思路一致，详见70
  * https://leetcode.com/problems/combination-sum-iv/
  */
 
