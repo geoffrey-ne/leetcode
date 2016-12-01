@@ -1,5 +1,5 @@
 /**
- * 39. Combination Sum
+ * [★★★★★]39. Combination Sum
  * finish: 2016-11-25
  * dp
  * https://leetcode.com/problems/combination-sum/
@@ -39,4 +39,5 @@ function getResult(candidates, res, cur, target, start) {
     }
 }
 
+write('algorithms: 39. Combination Sum', 'title');
 write(combinationSum([3, 12, 9, 11, 6, 7, 8, 5, 4], 15));

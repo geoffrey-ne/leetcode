@@ -1,5 +1,5 @@
 /**
- * 216. Combination Sum III
+ * [★★★]216. Combination Sum III
  * finish: 2016-11-28
  * dp
  * https://leetcode.com/problems/combination-sum-iii/
@@ -31,5 +31,6 @@ function helper(candicate, res, cur, remainK, remainN, start) {
     }
 }
 
+write('algorithms: 216. Combination Sum III', 'title');
 write(combinationSum3(3, 9));
 write(combinationSum3(3, 7));

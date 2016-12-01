@@ -1,5 +1,5 @@
 /**
- * 456. 132 pattern
+ * [★★★★★]456. 132 pattern
  * finish: 2016-11-25
  * 无状态转移方程的dp
  * https://leetcode.com/problems/132-pattern/
@@ -43,9 +43,10 @@ var find132pattern = function (nums) {
     return false;
 }
 
-console.log(find132pattern([3, 1, 4, 2]));
-console.log(find132pattern([-2, 1, 2, -2, 1, 2]));
-console.log(find132pattern([1, 2, 3, 4]));
-console.log(find132pattern([3, 1, 4, 2]));
-console.log(find132pattern([-1, 3, 2, 0]));
-console.log(find132pattern([3, 5, 0, 3, 4]));
+write('algorithms: 456. 132 pattern', 'title');
+write(find132pattern([3, 1, 4, 2]));
+write(find132pattern([-2, 1, 2, -2, 1, 2]));
+write(find132pattern([1, 2, 3, 4]));
+write(find132pattern([3, 1, 4, 2]));
+write(find132pattern([-1, 3, 2, 0]));
+write(find132pattern([3, 5, 0, 3, 4]));

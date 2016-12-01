@@ -1,5 +1,5 @@
 /**
- * 70. Climbing Stairs
+ * [★★★★★]70. Climbing Stairs
  * finish: 2016-11-30
  * dp
  * https://leetcode.com/problems/climbing-stairs/
@@ -26,6 +26,7 @@ function helper(candidates, target, cache) {
     cache[target] = res;
     return res;
 }
+
 write('algorithms: 70. Climbing Stairs', 'title');
 write(climbStairs(3));
 write(climbStairs(4));

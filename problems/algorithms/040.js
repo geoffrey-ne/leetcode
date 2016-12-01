@@ -1,5 +1,5 @@
 /**
- * 40. Combination Sum II
+ * [★★★★]40. Combination Sum II
  * finish: 2016-11-28
  * dp
  * https://leetcode.com/problems/combination-sum-ii/
@@ -42,5 +42,7 @@ function getResult(candidates, res, cur, target, start) {
         }
     }
 }
+
+write('algorithms: 40. Combination Sum II', 'title');
 write(combinationSum([2,5,2,1,2], 5));
 write(combinationSum([10, 1, 2, 7, 6, 1, 5], 8));

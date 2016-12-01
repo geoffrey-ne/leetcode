@@ -1,5 +1,5 @@
 /**
- * 377. Combination Sum IV
+ * [★★★★★]377. Combination Sum IV
  * finish: 2016-11-28
  * dp:与爬楼梯思路一致，详见70
  * https://leetcode.com/problems/combination-sum-iv/
@@ -28,6 +28,7 @@ function helper(candidates, target, cache) {
     cache[target] = res;
     return res;
 }
+
 write('algorithms: 377. Combination Sum IV', 'title');
 write(combinationSum4([1, 2, 3], 4));
 write(combinationSum4([4, 2, 1], 32));
