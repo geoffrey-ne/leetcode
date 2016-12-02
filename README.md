@@ -1,6 +1,9 @@
 # leetcode
 https://leetcode.com/
 
+# 解题语言
+javascript
+
 # 算法题目：
 ./problems/algorithms
 
