@@ -1,5 +1,5 @@
 /**
- * [★]038. Count and Say
+ * [★]38. Count and Say
  * finish: 2016-12-01
  * https://leetcode.com/problems/count-and-say/
  */

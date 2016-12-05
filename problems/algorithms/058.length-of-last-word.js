@@ -1,5 +1,5 @@
 /**
- * [★★]058. Length of Last Word
+ * [★★]58. Length of Last Word
  * finish: 2016-12-01
  * Array.split & Reg || Array.lastIndexOf
  * https://leetcode.com/problems/length-of-last-word/

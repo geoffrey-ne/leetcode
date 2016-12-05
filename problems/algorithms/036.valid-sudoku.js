@@ -1,5 +1,5 @@
 /**
- * [★★★]036. Valid Sudoku
+ * [★★★]36. Valid Sudoku
  * finish: 2016-12-05
  * https://leetcode.com/problems/valid-sudoku/
  */
