@@ -8,22 +8,16 @@
  * @param {number[]} digits
  * @return {number[]}
  */
-var plusOne = function (digits) {
-    var isJinwei = false;
+var plusOne = function(digits) {
     for (var i = digits.length - 1; i >= 0; i--) {
         digits[i] += 1;
         if (digits[i] === 10) {
-            isJinwei = true;
             digits[i] = 0;
         } else {
-            isJinwei = false;
-            break;
+            return digits;
         }
     }
-    if (isJinwei) {
-        digits = [1].concat(digits);
-    }
-    return digits
+    return [1].concat(digits);
 };
 
 write('algorithms: 66. Plus One', 'title');
