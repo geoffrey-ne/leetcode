@@ -87,4 +87,4 @@ var maxSubArray = function (nums) {
 };
 
 write('algorithms: 53. Maximum Subarray', 'title');
-write(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]));    // 6
+write(maxSubArray2([-2, 1, -3, 4, -1, 2, 1, -5, 4]));    // 6
