@@ -6,13 +6,13 @@
 
 class FreqStack {
   constructor() {
-    FreqStack.map = new Map()
-    FreqStack.array = new Array()
+    this.map = new Map()
+    this.array = new Array()
   }
 
   push(x) {
-    const map = FreqStack.map,
-      array = FreqStack.array
+    const map = this.map,
+      array = this.array
 
     if (map.has(x)) {
       map.set(x, map.get(x) + 1)
@@ -29,8 +29,8 @@ class FreqStack {
   }
 
   pop() {
-    const map = FreqStack.map,
-      array = FreqStack.array
+    const map = this.map,
+      array = this.array
 
     const lastIndex = array.length - 1,
       returnNum = array[lastIndex].pop()
