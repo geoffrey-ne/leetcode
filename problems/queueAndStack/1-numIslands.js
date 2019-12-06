@@ -45,7 +45,7 @@ var numIslands = function(grid) {
   return res
 }
 
-write('queueAndStack 1. numSquares', 'title')
+write('queueAndStack 1. numIslands', 'title')
 write(
   numIslands([
     ['1', '1', '1', '1', '0'],
