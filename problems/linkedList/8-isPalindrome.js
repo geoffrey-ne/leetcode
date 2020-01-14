@@ -88,7 +88,7 @@ var isPalindrome1 = function(head) {
   return true
 }
 
-write('linkedList 7. oddEvenList', 'title')
+write('linkedList 8. isPalindrome', 'title')
 
 var node1_1 = new ListNode(1)
 var node1_2 = new ListNode(2)
