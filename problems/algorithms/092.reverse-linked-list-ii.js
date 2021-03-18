@@ -33,41 +33,23 @@ function ListNode(val) {
  * @param {number} n
  * @return {ListNode}
  */
-var reverseBetween = function (head, m, n) {
-  if (!head || n <= 1 || m >= n) {
-    return head
+var reverseBetween = function(head, left, right) {
+  let preHead = new ListNode(-1, head)
+  let pre = preHead
+  for (let i = 1; i < left; i++) {
+      pre = pre.next
   }
 
-  let preP = null
-  let p = head
-  while (m > 1) {
-    preP = p
-    p = p.next
-    m--
-    n--
+  let cur = pre.next
+  let next = null
+  for (let i = left; i < right; i++) {
+      next = cur.next
+      cur.next = next.next
+      next.next = pre.next
+      pre.next = next
   }
-
-  let con = preP
-  let tail = p
-  let temp = null
-
-  while (n > 0) {
-    temp = p.next
-    p.next = preP
-    preP = p
-    p = temp
-    n--
-  }
-
-  if (con != null) {
-    con.next = preP
-  } else {
-    head = preP
-  }
-
-  tail.next = p
-  return head
-}
+  return preHead.next
+};
 
 let left = null
 let stop = false
