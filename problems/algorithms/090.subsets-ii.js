@@ -40,7 +40,7 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
-var subsetsWithDup = function (nums) {
+var subsetsWithDup1 = function (nums) {
   if (nums.length === 0) {
     return [[]]
   }
@@ -62,8 +62,40 @@ var subsetsWithDup = function (nums) {
   return res
 }
 
+var subsetsWithDup = function (nums) {
+  if (nums.length === 0) {
+    return [[]]
+  }
+  
+  nums.sort((n1, n2) => n1 - n2)
+  let res = [[], [nums[0]]]
+  let pre = [[nums[0]]]
+  let cur = []
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] != nums[i - 1]) {
+      cur = res.map(arr => {
+        const newArr = [...arr]
+        newArr.push(nums[i])
+        return newArr
+      })
+    } else {
+      cur = pre.map(arr => {
+        const newArr = [...arr]
+        newArr.push(nums[i])
+        return newArr
+      })
+    }
+    pre = [...cur]
+    res = res.concat(cur)
+  }
+
+  return res
+}
+
 write('algorithms: 子集 II', 'title')
 
+
+write(subsetsWithDup([1, 1])) // [[],[1],[1,1]]
 write(subsetsWithDup([1, 2, 3]))
 write(subsetsWithDup([1, 2, 2]))
 
