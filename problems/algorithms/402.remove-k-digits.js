@@ -46,26 +46,37 @@ num 不会包含任何前导零。
  */
 var removeKdigits = function (num, k) {
   // 处理特殊
-  if (num.length === k) {
+  if (num.length === 0 || num.length === k) {
     return '0'
   } else if (k === 0) {
     return num
   }
 
-  const indexOf0 = num.findIndex(n => n === '0')
-  if (indexOf0 < k)
-  
-  
-  else if (num[1] === '0' && k > 0) {
-    // 可以降两位
-    return removeKdigits(num.slice(2), k - 1)
+  for (let i = 0; i < num.length - 1; i++) {
+    if (num[i] > num[i + 1]) {
+      const pre = num.substring(0, i)
+      if (i === 0) {
+        while (i < num.length - 1 && num[i + 1] === '0') {
+          i++
+        }
+      }
+      const end = num.slice(i + 1)
+      return removeKdigits(pre + end, k - 1)
+    }
   }
+  return removeKdigits(num.slice(0, num.length - 1), k - 1)
 }
 
 write('algorithms: 402. 移掉K位数字', 'title')
 
+write(removeKdigits('1234567890', 9)) // 0
+write(removeKdigits('112', 1)) // 11
+write(removeKdigits('1107', 1)) // 107
+write(removeKdigits('10', 1)) // 0
 write(removeKdigits('1432219', 3)) // 1219
+write(removeKdigits('123456', 3)) // 123
 write(removeKdigits('10200', 1)) // 200
+write(removeKdigits('10200', 2)) // 0
 write(removeKdigits('10', 2)) // 0
 
-// tag: 未完成
+// tag: 递归；单调栈
