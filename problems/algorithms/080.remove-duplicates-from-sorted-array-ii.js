@@ -44,7 +44,7 @@ for (int i = 0; i < len; i++) {
  * @param {number[]} nums
  * @return {number}
  */
-var removeDuplicates = function (nums) {
+var removeDuplicates1 = function (nums) {
   if (nums.length <= 2) {
     return nums.length
   }
@@ -67,6 +67,24 @@ var removeDuplicates = function (nums) {
   return last + 1
 }
 
+// 快慢指针
+var removeDuplicates = function (nums) {
+  const n = nums.length
+  if (n <= 2) {
+    return n
+  }
+  let slow = 2,
+    fast = 2
+  while (fast < n) {
+    if (nums[slow - 2] != nums[fast]) {
+      nums[slow] = nums[fast]
+      ++slow
+    }
+    ++fast
+  }
+  return slow
+}
+
 write('algorithms: 80. 删除排序数组中的重复项 II', 'title')
 
 write(removeDuplicates([1, 2, 2])) // [1, 2, 2]， 3
@@ -74,4 +92,4 @@ write(removeDuplicates([1, 1, 1, 2, 2, 3])) // [1, 1, 2, 2, 3]， 5
 write(removeDuplicates([0, 0, 1, 1, 1, 1, 2, 3, 3])) // 【0, 0, 1, 1, 2, 3, 3】，7
 write(removeDuplicates([0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3])) // 【0, 0, 1, 1, 2, 2, 3, 3】，8
 
-// tag: 数组
+// tag: 数组；双指针

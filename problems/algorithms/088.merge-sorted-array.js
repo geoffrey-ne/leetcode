@@ -47,6 +47,8 @@ var merge = function (nums1, m, nums2, n) {
     }
   }
 }
+// 无需原地修改时，可以使用拉链，正序
+// 需原地修改时，使用逆序
 
 write('algorithms: 88. 合并两个有序数组', 'title')
 
