@@ -45,17 +45,6 @@ r   g  ta  e
 输入: s1 = "great", s2 = "rgeat"
 输出: true
 
-badc  adbc
-
-baa c
-
-b aa
-
-gr eat
-rg eat
-
-eargt
-
 示例 2:
 
 输入: s1 = "abcde", s2 = "caebd"
@@ -68,35 +57,73 @@ eargt
  * @return {boolean}
  */
 var isScramble = function (s1, s2) {
-  if (s1.length !== s2.length) {
-    return false
-  }
-  return helper(s1, s2)
+  const length = s1.length
+  memo = new Array(length)
+    .fill(0)
+    .map(() => new Array(length).fill(0).map(() => new Array(length + 1).fill(0)))
+  return dfs(0, 0, length, s1, s2, memo)
 }
 
-function helper(s1, s2) {
-  if (s1 === s2) {
+const dfs = function (i1, i2, length, s1, s2, memo) {
+  if (memo[i1][i2][length] !== 0) {
+    return memo[i1][i2][length] === 1
+  }
+
+  // 判断两个子串是否相等
+  if (s1.slice(i1, i1 + length) === s2.slice(i2, i2 + length)) {
+    memo[i1][i2][length] = 1
     return true
   }
-  if (s1.length === 2 && s1[0] === s2[1] && s2[0] === s1[1]) {
-    return true
-  }
-  const index = s2.indexOf(s1[0])
-  if (index === 0) {
-    return helper(s1.slice(1), s2.slice(1))
-  } else if (index === -1 || index === s2.length - 1) {
+
+  // 判断是否存在字符 c 在两个子串中出现的次数不同
+  if (!checkIfSimilar(i1, i2, length, s1, s2)) {
+    memo[i1][i2][length] = -1
     return false
-  } else {
-    return (
-      helper(s1.slice(0, index + 1), s2.slice(0, index + 1)) &&
-      helper(s1.slice(index + 1), s2.slice(index + 1))
-    )
   }
+
+  // 枚举分割位置
+  for (let i = 1; i < length; ++i) {
+    // 不交换的情况
+    if (dfs(i1, i2, i, s1, s2, memo) && dfs(i1 + i, i2 + i, length - i, s1, s2, memo)) {
+      memo[i1][i2][length] = 1
+      return true
+    }
+    // 交换的情况
+    if (dfs(i1, i2 + length - i, i, s1, s2, memo) && dfs(i1 + i, i2, length - i, s1, s2, memo)) {
+      memo[i1][i2][length] = 1
+      return true
+    }
+  }
+
+  memo[i1][i2][length] = -1
+  return false
+}
+
+const checkIfSimilar = function (i1, i2, length, s1, s2) {
+  const freq = new Map()
+  for (let i = i1; i < i1 + length; ++i) {
+    const c = s1[i]
+    freq.set(c, (freq.get(c) || 0) + 1)
+  }
+  for (let i = i2; i < i2 + length; ++i) {
+    const c = s2[i]
+    freq.set(c, (freq.get(c) || 0) - 1)
+  }
+  for (const value of freq.values()) {
+    if (value !== 0) {
+      return false
+    }
+  }
+  return true
 }
 
 write('algorithms: 87. 扰乱字符串', 'title')
 
+write(isScramble('abb', 'bba')) // true
+write(isScramble('abb', 'bab')) // true
+write(isScramble('abca', 'caba')) // true
 write(isScramble('great', 'rgeat')) // true
 write(isScramble('abcde', 'caebd')) // false
+write(isScramble('abcdbdacbdac', 'bdacabcdbdac')) // true
 
-// tag: 字符串
+// tag: 字符串；dp；
