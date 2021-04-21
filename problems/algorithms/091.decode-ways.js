@@ -1,42 +1,112 @@
 /**
- * [★★★★]91. Decode Ways
- * finish: 2017-04-20
+ * [中等]91. 解码方法
  * https://leetcode.com/problems/decode-ways/
+ * 
+ 一条包含字母 A-Z 的消息通过以下映射进行了 编码 ：
+
+'A' -> 1
+'B' -> 2
+...
+'Z' -> 26
+要 解码 已编码的消息，所有数字必须基于上述映射的方法，反向映射回字母（可能有多种方法）。例如，"11106" 可以映射为：
+
+"AAJF" ，将消息分组为 (1 1 10 6)
+"KJF" ，将消息分组为 (11 10 6)
+注意，消息不能分组为  (1 11 06) ，因为 "06" 不能映射为 "F" ，这是由于 "6" 和 "06" 在映射中并不等价。
+
+给你一个只含数字的 非空 字符串 s ，请计算并返回 解码 方法的 总数 。
+
+题目数据保证答案肯定是一个 32 位 的整数。
+
+
+示例 1：
+
+输入：s = "12"
+输出：2
+解释：它可以解码为 "AB"（1 2）或者 "L"（12）。
+示例 2：
+
+输入：s = "226"
+输出：3
+解释：它可以解码为 "BZ" (2 26), "VF" (22 6), 或者 "BBF" (2 2 6) 。
+示例 3：
+
+输入：s = "0"
+输出：0
+解释：没有字符映射到以 0 开头的数字。
+含有 0 的有效映射是 'J' -> "10" 和 'T'-> "20" 。
+由于没有字符，因此没有有效的方法对此进行解码，因为所有数字都需要映射。
+示例 4：
+
+输入：s = "06"
+输出：0
+解释："06" 不能映射到 "F" ，因为字符串含有前导 0（"6" 和 "06" 在映射中并不等价）。
+
+提示：
+
+1 <= s.length <= 100
+s 只包含数字，并且可能包含前导零。
+
  */
 /**
+ * 带缓存的递归
+ *
  * @param {string} s
  * @return {number}
  */
+var numDecodings1 = function (s, cache = {}) {
+  if (cache[s]) {
+    return cache[s]
+  }
+  if (s.length === 0) {
+    return 0
+  } else if (s.length === 1) {
+    return s !== '0' ? 1 : 0
+  } else if (s.length === 2) {
+    if (s[0] === '0') {
+      return 0
+    } else if (s[1] === '0') {
+      return s[0] <= '2' ? 1 : 0
+    } else {
+      return s[0] + s[1] <= '26' ? 2 : 1
+    }
+  }
+  let res = 0
+  if (s[0] !== '0') {
+    res += numDecodings(s.slice(1), cache)
+    if (s[0] + s[1] <= '26') {
+      res += numDecodings(s.slice(2), cache)
+    }
+  }
+  cache[s] = res
+  return res
+}
+
 var numDecodings = function (s) {
-    if (s.length === 0 || /(^0)|[3-9]0/.test(s)) {
-        return 0;
+  if (s.length === 0 || /(^0)|[3-9]0/.test(s)) {
+    return 0
+  }
+  var res = [],
+    len = s.length
+  res[len] = 1
+  res[len - 1] = s[len - 1] === '0' ? 0 : 1
+  for (var i = len - 2; i >= 0; i--) {
+    if (s[i] === '0') {
+      res[i] = 0
+    } else {
+      res[i] = parseInt(s.slice(i, i + 2)) <= 26 ? res[i + 1] + res[i + 2] : res[i + 1]
     }
-    return helper(s);
-};
-
-function helper(str) {
-    var len = str.length;
-    if (len < 3) {
-        return isActive(str) ? 2 : 1;
-    }
-    var sub = str.slice(-3);
-    var n = helper(str.slice(0, len - 1));
-    if (isActive(sub.slice(-2))) {
-        if (isActive(sub.slice(0, 2))) {
-            n = n * 2 - n / 2;
-        } else {
-            n = n * 2;
-        }
-    }
-    return n;
+  }
+  return res[0]
 }
 
-function isActive(s) {
-    return parseInt(s) < 27 && parseInt(s) > 9;
-}
+write('algorithms: 91. 解码方法', 'title')
 
-write('algorithms: 91. Decode Ways', 'title');
-write(numDecodings("12173"));   // 5
-write(numDecodings("12713"));   // 4
-write(numDecodings("1012123"));   // 8
-write(numDecodings('12'));   // 2 : AB；L
+write(numDecodings('111111111111111111111111111111111111111111111')) // 1
+write(numDecodings('10')) // 1
+write(numDecodings('12173')) // 5
+write(numDecodings('12713')) // 4
+write(numDecodings('1012123')) // 8
+write(numDecodings('12')) // 2 : AB；L
+
+// tag: 字符串；回溯；DP
