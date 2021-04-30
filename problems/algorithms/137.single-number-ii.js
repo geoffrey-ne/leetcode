@@ -24,11 +24,28 @@
  * @param {number[]} nums
  * @return {number}
  */
-var singleNumber = function (nums) {}
+var singleNumber = function (nums) {
+  return findOnce(nums, 3)
+}
+
+function findOnce(nums, n) {
+  const len = 32
+  let res = 0
+  for (let i = 0; i < len; i++) {
+    let oneCount = 0
+    for (let j = 0; j < nums.length; j++) {
+      oneCount += (nums[j] >>> i) & 1
+    }
+    if (oneCount % n !== 0) {
+      res |= 1 << i
+    }
+  }
+  return res
+}
 
 write('algorithms: 137. 只出现一次的数字 II', 'title')
 
 write(singleNumber([2, 2, 3, 2])) // 3
 write(singleNumber([0, 1, 0, 1, 0, 1, 99])) // 99
 
-// tag: 异或；位运算；未完成
+// tag: 位运算；多进制
