@@ -27,6 +27,30 @@ _|_||_||||||
  * @return {number}
  */
 var trap = function (height) {
+  let res = 0
+  const monoStack = []
+  let index = height.length - 1
+  while (index >= 0) {
+    while (monoStack.length > 0 && height[monoStack[monoStack.length - 1]] <= height[index]) {
+      const i = monoStack.pop()
+      if (monoStack.length === 0) {
+        break
+      }
+
+      const rightIndex = monoStack[monoStack.length - 1]
+      res += (rightIndex - index - 1) * (Math.min(height[rightIndex], height[index]) - height[i])
+    }
+    monoStack.push(index)
+    index--
+  }
+  return res
+}
+
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var trap1 = function (height) {
   let startIndex = 0
   while (startIndex < height.length && height[startIndex] === 0) {
     startIndex++
