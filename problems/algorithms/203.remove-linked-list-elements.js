@@ -58,8 +58,4 @@ var removeElements = function(head, val) {
   return newHead
 };
 
-write(countPrimes(10)) // 4
-write(countPrimes(0)) // 0
-write(countPrimes(1)) // 0
-
 // tag: 链表
