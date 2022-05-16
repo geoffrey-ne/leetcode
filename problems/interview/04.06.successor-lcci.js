@@ -79,6 +79,30 @@ var inorderSuccessor = function (root, p) {
   return null
 }
 
+// official
+var inorderSuccessor = function(root, p) {
+  let successor = null;
+  // 如果存在右节点，可以直接拿到结果
+  if (p.right) {
+      successor = p.right;
+      while (successor.left) {
+          successor = successor.left;
+      }
+      return successor;
+  }
+  // 这里不用完全遍历，只需根据情况判断往左或往右
+  let node = root;
+  while (node) {
+      if (node.val > p.val) {
+          successor = node;
+          node = node.left;
+      } else {
+          node = node.right;
+      }
+  }
+  return successor;
+};
+
 write('algorithms: 面试题 04.06. 后继者', 'title')
 
 /**
