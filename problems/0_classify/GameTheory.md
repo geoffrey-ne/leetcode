@@ -1,16 +1,22 @@
-/**
- * [★★]464. Can I Win
- * finish: 2018-11-28
- * https://leetcode.com/problems/can-i-win
- */
+# 博弈
 
-/**
- * 官方解答：记忆化搜索 + 状态压缩
- *
- * @param {number} maxChoosableInteger
- * @param {number} desiredTotal
- * @return {boolean}
- */
+博弈类题目，代表类型是必赢或者必输游戏，需要注意关键点：
+
+- 确定初始状态；
+- dp:
+  - 当前情况下能够胜利；
+  - 下一个状态是否失败；
+
+## 举例
+
+游戏规则：两个人，从 1 到 maxChoosableInteger，不重复拿数字，先到达 desiredTotal 的人获胜。
+
+比如：maxChoosableInteger = 10, desiredTotal = 11
+Output: false
+Explanation:
+无论第一个人怎么选，第二个人都会优先到达 11 的总和。
+
+```js
 var canIWin = function (maxChoosableInteger, desiredTotal) {
   const memo = new Map()
   const dfs = (maxChoosableInteger, usedNumbers, desiredTotal, currentTotal) => {
@@ -18,10 +24,12 @@ var canIWin = function (maxChoosableInteger, desiredTotal) {
       let res = false
       for (let i = 0; i < maxChoosableInteger; i++) {
         if (((usedNumbers >> i) & 1) === 0) {
+          // 当前情况下能够胜利
           if (i + 1 + currentTotal >= desiredTotal) {
             res = true
             break
           }
+          // 下一个状态是否失败
           if (
             !dfs(maxChoosableInteger, usedNumbers | (1 << i), desiredTotal, currentTotal + i + 1)
           ) {
@@ -40,9 +48,11 @@ var canIWin = function (maxChoosableInteger, desiredTotal) {
   }
   return dfs(maxChoosableInteger, 0, desiredTotal, 0)
 }
+```
 
-write('algorithms: 464. Can I Win', 'title')
-// write(canIWin(10, 11));  // false
-write(canIWin(15, 100)) // false
+## leetcode 题目列表
 
-// tags: 记忆化搜索；状态压缩；博弈
+- [464. Can I Win](https://leetcode.com/problems/can-i-win/);
+- [877. Stone Game](https://leetcode.com/problems/stone-game/);
+
+tags: 博弈
