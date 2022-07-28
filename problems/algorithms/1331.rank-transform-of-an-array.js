@@ -40,19 +40,25 @@
  * @return {number[]}
  */
 var arrayRankTransform = function (arr) {
-  let res = new Array(arr.length).fill(1)
-  for (let i = 0; i < arr.length; i++) {
-    const dict = new Set()
-    for (let j = i + 1; j < arr.length; j++) {
-      if (!dict.has(arr[j])) {
-        if (arr[j] > arr[i]) {
-          res[j]++
-        } else if (arr[j] < arr[i]) {
-          res[i]++
-        }
-        dict.add(arr[j])
-      }
+  if (arr.length === 0) {
+    return []
+  }
+  const sortArr = arr.slice(0).sort((n1, n2) => n1 - n2)
+  let index = 1
+  const dict = {
+    [sortArr[0]]: index
+  }
+  
+  for (let i = 1 ; i < sortArr.length; i++) {
+    if (sortArr[i] === sortArr[i - 1]) {
+      dict[sortArr[i]] = index
+    } else {
+      dict[sortArr[i]] = ++index
     }
+  }
+  const res = []
+  for (let i = 0 ; i < arr.length; i++) {
+    res.push(dict[arr[i]])
   }
   return res
 }
@@ -64,6 +70,12 @@ write(arrayRankTransform([100, 100, 100])) // [1,1,1]
 write(arrayRankTransform([37, 12, 12])) // [2, 1, 1]
 write(arrayRankTransform([37, 12, 28, 9, 100, 56, 80, 5, 12])) // [5,3,4,2,8,6,7,1,3]
 
-[1,1,1,1,1,1,1,1]
+37
+12 28 9 100 56 80 5 12
 
+[5,1,1,1,1,1,1,1]
+
+
+[5,3,4,2,8,6,7,1,3]
+[5,3,5,2,9,7,8,1,3]
 // tag: 数组
