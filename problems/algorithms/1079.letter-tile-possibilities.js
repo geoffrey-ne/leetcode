@@ -64,4 +64,4 @@ write(numTilePossibilities('AAB')) // 8
 // write(numTilePossibilities('AAABBC')) // 188
 // write(numTilePossibilities('V')) // 1
 
-// tag: 字符串
+// tag: 字符串;计数+回溯
